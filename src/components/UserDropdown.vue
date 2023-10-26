@@ -11,19 +11,19 @@
       <v-list class="py-0" lines="one" density="compact">
         <v-list-item value="item1" active-color="primary">
           <template v-slot:prepend>
-            <!-- <UserIcon stroke-width="1.5" size="20" /> -->
+            <v-icon icon="mdi-account-outline" />
           </template>
           <v-list-item-title class="pl-4 text-body-1">My Profile</v-list-item-title>
         </v-list-item>
         <v-list-item value="item2" active-color="primary">
           <template v-slot:prepend>
-            <!-- <MailIcon stroke-width="1.5" size="20" /> -->
+            <!--                        <MailIcon stroke-width="1.5" size="20"/>-->
           </template>
           <v-list-item-title class="pl-4 text-body-1">My Account</v-list-item-title>
         </v-list-item>
         <v-list-item value="item3" active-color="primary">
           <template v-slot:prepend>
-            <!-- <ListCheckIcon stroke-width="1.5" size="20" /> -->
+            <!--                        <ListCheckIcon stroke-width="1.5"  size="20"/>-->
           </template>
           <v-list-item-title class="pl-4 text-body-1">My Task</v-list-item-title>
         </v-list-item>
@@ -36,9 +36,8 @@
 </template>
 
 <script setup>
-
-import { useAuth } from '@/store/auth';
-import { useRouter } from 'vue-router';
+import { useAuth } from "@/store/auth";
+import { useRouter } from "vue-router";
 
 const authStore = useAuth();
 const router = useRouter()
