@@ -59,11 +59,13 @@
 import { ref } from 'vue';
 import { useAuth } from '@/store/auth';
 import Logo from "@/components/logo/Logo.vue";
+import { useRouter } from 'vue-router';
 
 const email = ref()
 const password = ref()
 const token = ref()
 const state = ref('forgotPassword')
+const router = useRouter()
 
 function forgotPasword() {
   const authStore = useAuth()
@@ -78,6 +80,7 @@ function resetPassword() {
   authStore.resetPassword(token.value, password.value)
     .then(() => {
       changeToForgotPassword()
+      router.push({ name: 'login' })
     })
 }
 

@@ -54,15 +54,18 @@
 import { ref } from 'vue';
 import { useAuth } from '@/store/auth';
 import Logo from "@/components/logo/Logo.vue";
+import { useRouter } from 'vue-router';
 
 const firstName = ref('');
 const lastName = ref('');
 const email = ref('');
 const password = ref('');
+const router = useRouter();
 
 function register() {
   const authStore = useAuth();
   authStore.register(firstName.value, lastName.value, email.value, password.value)
+  router.push({ name: 'login' });
 }
 </script>
 

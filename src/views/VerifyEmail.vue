@@ -13,19 +13,13 @@
                 Verificando
               </div>
 
-              <div
-                v-else-if="!isReady"
-                class="text-error text-center"
-              >
+              <div v-else-if="!isReady" class="text-error text-center">
                 Ops! Parece que esse token está inválido!
                 <!--TODO: mapear errors-->
                 <!--      Ops! Você já verificou seu email.-->
               </div>
 
-              <div
-                v-else
-                class="text-success text-center"
-              >
+              <div v-else class="text-success text-center">
                 Email verificado <br>
                 Obrigado, {{ state.data.first_name }} por verificar seu email!
               </div>
@@ -39,14 +33,16 @@
 
 <script setup>
 import { useAuth } from '@/store/auth';
-import { useRoute } from 'vue-router';
-import { useAsyncState } from '@vueuse/core'
+import { useAsyncState } from '@vueuse/core';
 import Logo from "@/components/logo/Logo.vue";
+import { useRouter } from 'vue-router';
 
 const authStore = useAuth()
-const route = useRoute()
+const router = useRouter()
+
 
 const { state, isReady, isLoading } = useAsyncState(
   authStore.verifyEmail(route.query.token).then(r => r.data),
+  router.push({ name: 'login' })
 )
 </script>

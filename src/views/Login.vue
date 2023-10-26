@@ -59,8 +59,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const authStore = useAuth()
 
-const email = ref('');
-const password = ref('');
+const email = ref('teste@example.com');
+const password = ref('teste123');
 
 function login() {
   authStore.login(email.value, password.value).then(() => {
