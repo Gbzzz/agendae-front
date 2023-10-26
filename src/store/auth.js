@@ -1,38 +1,33 @@
 import { defineStore } from 'pinia';
 import { useMe } from '@/store/me';
-import axios from '@/axios';
-import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export const useAuth = defineStore('auth', {
-  state: () => ({
-    token: localStorage.getItem('token') || null,
-  }),
+  state: () => ({}),
 
   actions: {
-    async sanctum() {
-      await axios.get('sanctum/csrf-cookie');
+    sanctum() {
+      return axios.get('sanctum/csrf-cookie');
     },
-    async login(email, password) {
-      await this.sanctum()
-      const response = await axios.post('api/login', { email, password })
-      const { token } = response.data
-      localStorage.setItem('token', token)
-      this.token = token
+    login(email, password) {
 
-      const meStore = useMe()
-      await meStore.getMe()
-
-      const router = useRouter()
-      router.push({ name: 'dashboard' })
-      return response.data
+      return axios.post('api/login', {
+        email, password
+      }).then(r => {
+        const meStore = useMe();
+        meStore.getMe()
+          .catch(() => {})
+          .finally(() => {
+          })
+        meStore.user = r.data.data
+        console.log(meStore.user)
+      })
     },
-    async logout() {
-      await axios.post('api/logout')
-      this.token = null
+    logout() {
       const meStore = useMe()
-      meStore.clearUser()
-      const router = useRouter()
-      router.push({ name: 'login' })
+      return axios.post('api/logout').then(() => {
+        meStore.user = null
+      })
     },
     register(firstName, lastName = '', email, password) {
       return axios.post('api/register', {
@@ -58,4 +53,10 @@ export const useAuth = defineStore('auth', {
       })
     }
   },
+  getters: {
+    isLoggedIn() {
+      const meStore = useMe()
+      return !!meStore.user
+    }
+  }
 })

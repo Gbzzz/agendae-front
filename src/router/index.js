@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth, redirectIfAuthenticated } from '@/router/guard';
 import { useAuth } from '@/store/auth';
-import { useMe } from '@/store/me';
 
 
 const routes = [
@@ -73,10 +72,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuth()
   await authStore.sanctum();
-  const meStore = useMe()
-  if(authStore.isLoggedIn && !meStore.user){
-    await meStore.getMe()
-}
   next()
 })
 
