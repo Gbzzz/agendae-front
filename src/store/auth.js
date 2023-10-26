@@ -3,30 +3,27 @@ import { useMe } from '@/store/me';
 import axios from 'axios';
 
 export const useAuth = defineStore('auth', {
-  state: () => ({}),
+  state: () => ({
+    isLoggedIn: false
+  }),
 
   actions: {
-    sanctum() {
-      return axios.get('sanctum/csrf-cookie');
+    async sanctum() {
+      await axios.get('sanctum/csrf-cookie');
     },
-    login(email, password) {
-
-      return axios.post('api/login', {
-        email, password
-      }).then(r => {
-        const meStore = useMe();
-        meStore.getMe()
-          .catch(() => {})
-          .finally(() => {
-          })
-        meStore.user = r.data.data
-      })
-    },
-    logout() {
+    async login(email, password) {
+      await this.sanctum()
+      const response = await axios.post('api/login', { email, password })
       const meStore = useMe()
-      return axios.post('api/logout').then(() => {
-        meStore.user = null
-      })
+      await meStore.getMe()
+      this.isLoggedIn = true
+      return response.data
+    },
+    async logout() {
+      await axios.post('api/logout')
+      const meStore = useMe()
+      meStore.clearUser()
+      this.isLoggedIn = false
     },
     register(firstName, lastName = '', email, password) {
       return axios.post('api/register', {
@@ -52,10 +49,4 @@ export const useAuth = defineStore('auth', {
       })
     }
   },
-  getters: {
-    isLoggedIn() {
-      const meStore = useMe()
-      return !!meStore.user
-    }
-  }
 })
