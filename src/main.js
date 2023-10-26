@@ -9,13 +9,14 @@ import '@/scss/style.scss';
 
 const app = createApp(App)
 
+app.use(vuetify)
+app.use(router)
+app.mount('#app')
+
 app.use(pinia)
 const meStore = useMe();
 meStore.getMe()
   .catch(() => {})
   .finally(() => {
-    app.use(vuetify)
-    app.use(router)
-    app.mount('#app')
   })
 
