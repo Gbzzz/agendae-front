@@ -12,11 +12,14 @@ export const useAuth = defineStore('auth', {
     login(email, password) {
       const meStore = useMe()
 
-      meStore.getMe()
       return axios.post('api/login', {
         email, password
       }).then(r => {
-        meStore.user = r.data.data
+        meStore.getMe()
+        .catch(() => {})
+        .finally(() => {
+          meStore.user = r.data.data
+        })
       })
     },
     logout() {
