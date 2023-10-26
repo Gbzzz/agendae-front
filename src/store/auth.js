@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import { useMe } from '@/store/me';
-import axios from 'axios';
+import axios from '@/axios';
 
 export const useAuth = defineStore('auth', {
   state: () => ({
-    isLoggedIn: false
+    token: localStorage.getItem('token') || null,
   }),
 
   actions: {
@@ -14,16 +14,19 @@ export const useAuth = defineStore('auth', {
     async login(email, password) {
       await this.sanctum()
       const response = await axios.post('api/login', { email, password })
+      const { token } = response.data
+      localStorage.setItem('token', token)
+      this.token = token
+
       const meStore = useMe()
       await meStore.getMe()
-      this.isLoggedIn = true
       return response.data
     },
     async logout() {
       await axios.post('api/logout')
+      this.token = null
       const meStore = useMe()
       meStore.clearUser()
-      this.isLoggedIn = false
     },
     register(firstName, lastName = '', email, password) {
       return axios.post('api/register', {
