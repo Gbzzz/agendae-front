@@ -12,6 +12,7 @@ export const useAuth = defineStore('auth', {
     login(email, password) {
       const meStore = useMe()
 
+      meStore.getMe()
       return axios.post('api/login', {
         email, password
       }).then(r => {
