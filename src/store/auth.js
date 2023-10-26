@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { useMe } from '@/store/me';
 import axios from '@/axios';
+import { useRouter } from 'vue-router';
 
 export const useAuth = defineStore('auth', {
   state: () => ({
@@ -20,6 +21,9 @@ export const useAuth = defineStore('auth', {
 
       const meStore = useMe()
       await meStore.getMe()
+
+      const router = useRouter()
+      router.push({ name: 'dashboard' })
       return response.data
     },
     async logout() {
@@ -27,6 +31,8 @@ export const useAuth = defineStore('auth', {
       this.token = null
       const meStore = useMe()
       meStore.clearUser()
+      const router = useRouter()
+      router.push({ name: 'login' })
     },
     register(firstName, lastName = '', email, password) {
       return axios.post('api/register', {
