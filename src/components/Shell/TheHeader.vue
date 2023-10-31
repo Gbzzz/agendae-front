@@ -1,19 +1,17 @@
 <template>
-  <v-navigation-drawer left elevation="0"  app class="leftSidebar"  v-model="sidebarDrawer">
-    <div class="pa-5">
-      <Logo />
-    </div>
+  <div>
+    <v-navigation-drawer left elevation="0" app class="leftSidebar" v-model="sidebarDrawer">
+      <div class="pa-5">
+        <Logo />
+      </div>
 
-    <div>
-<!--      <perfect-scrollbar class="scrollnavbar">-->
+      <div>
+        <!--      <perfect-scrollbar class="scrollnavbar">-->
         <v-list class="pa-6">
-          <v-list-subheader color="darkText" class="smallCap text-uppercase text-subtitle-2 mt-5 font-weight-bold">MENU</v-list-subheader>
+          <v-list-subheader color="darkText"
+            class="smallCap text-uppercase text-subtitle-2 mt-5 font-weight-bold">MENU</v-list-subheader>
 
-          <v-list-item
-            rounded
-            class="mb-1"
-            active-color="primary"
-          >
+          <v-list-item rounded class="mb-1" active-color="primary">
             <!---If icon-->
             <template v-slot:prepend>
               <v-icon icon="mdi-account" />
@@ -24,27 +22,28 @@
         </v-list>
 
         <div class="pa-4">
-<!--          <ExtraBox />-->
+          <!--          <ExtraBox />-->
         </div>
-<!--      </perfect-scrollbar>-->
-    </div>
-
-  </v-navigation-drawer>
-
-  <v-app-bar elevation="0" height="70">
-    <div class="d-flex align-center justify-space-between w-100">
-      <div>
-        <v-btn class="hidden-lg-and-up ms-md-3 ms-sm-5 ms-3 text-muted" @click="sidebarDrawer = !sidebarDrawer" icon variant="flat"
-               size="small">
-          <v-icon icon="mdi-menu" />
-        </v-btn>
+        <!--      </perfect-scrollbar>-->
       </div>
 
-      <div>
-        <UserDropdown />
+    </v-navigation-drawer>
+
+    <v-app-bar elevation="0" height="70">
+      <div class="d-flex align-center justify-space-between w-100">
+        <div>
+          <v-btn class="hidden-lg-and-up ms-md-3 ms-sm-5 ms-3 text-muted" @click="sidebarDrawer = !sidebarDrawer" icon
+            variant="flat" size="small">
+            <v-icon icon="mdi-menu" />
+          </v-btn>
+        </div>
+
+        <div>
+          <UserDropdown />
+        </div>
       </div>
-    </div>
-  </v-app-bar>
+    </v-app-bar>
+  </div>
 </template>
 
 <script setup>
