@@ -20,3 +20,4 @@ meStore.getMe()
     app.use(router)
     app.mount('#app')
   })
+

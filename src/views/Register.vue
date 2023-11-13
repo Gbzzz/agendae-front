@@ -12,34 +12,32 @@
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Primeiro nome</v-label>
-                  <v-text-field variant="outlined" hide-details color="primary" v-model="firstName"></v-text-field>
+                  <v-text-field v-model="firstName" variant="outlined" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Sobrenome</v-label>
-                  <v-text-field variant="outlined" hide-details color="primary" v-model="lastName"></v-text-field>
+                  <v-text-field v-model="lastName" variant="outlined" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field variant="outlined" type="email" hide-details color="primary"
-                    v-model="email"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Senha</v-label>
-                  <v-text-field variant="outlined" type="password" hide-details color="primary"
-                    v-model="password"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password"  hide-details color="primary"></v-text-field>
                 </v-col>
-                <v-col cols="12">
-                  <v-btn color="primary" size="large" block flat @click="register">Cadastrar</v-btn>
+                <v-col cols="12" >
+                  <v-btn @click="register" color="primary" size="large" block flat>Cadastrar</v-btn>
                 </v-col>
               </v-row>
 
               <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
                 Já é cadastrado?
                 <RouterLink :to="{ name: 'login' }"
-                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
                   Login</RouterLink>
               </h6>
             </v-card-item>
@@ -54,18 +52,15 @@
 import { ref } from 'vue';
 import { useAuth } from '@/store/auth';
 import Logo from "@/components/logo/Logo.vue";
-import { useRouter } from 'vue-router';
 
 const firstName = ref('');
 const lastName = ref('');
 const email = ref('');
 const password = ref('');
-const router = useRouter();
 
 function register() {
   const authStore = useAuth();
   authStore.register(firstName.value, lastName.value, email.value, password.value)
-  router.push({ name: 'login' });
 }
 </script>
 

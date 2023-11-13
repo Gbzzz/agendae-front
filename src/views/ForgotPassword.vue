@@ -9,34 +9,35 @@
                 <Logo />
               </div>
 
-              <div class="text-body-1 text-muted text-center mb-3">Your Social Campaigns</div>
-
-              <v-row v-if="state === 'forgotPassword'" class="d-flex mb-3">
+              <v-row
+                v-if="state === 'forgotPassword'"
+                class="d-flex mb-3"
+              >
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field variant="outlined" type="email" hide-details color="primary"
-                    v-model="email"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
                 </v-col>
 
-                <v-col cols="12">
+                <v-col cols="12" >
                   <v-btn color="primary" size="large" block flat @click="forgotPasword">Solicitar token</v-btn>
                 </v-col>
               </v-row>
 
-              <v-row v-else-if="state === 'resetPassword'" class="d-flex mb-3">
+              <v-row
+                v-else-if="state === 'resetPassword'"
+                class="d-flex mb-3"
+              >
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Token</v-label>
-                  <v-text-field variant="outlined" type="text" hide-details color="primary"
-                    v-model="token"></v-text-field>
+                  <v-text-field v-model="token" variant="outlined" type="text" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Nova senha</v-label>
-                  <v-text-field variant="outlined" type="text" hide-details color="primary"
-                    v-model="password"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password" hide-details color="primary"></v-text-field>
                 </v-col>
 
-                <v-col cols="12">
+                <v-col cols="12" >
                   <v-btn color="primary" size="large" block flat @click="resetPassword">Redefinir senha</v-btn>
                 </v-col>
               </v-row>
@@ -44,7 +45,7 @@
               <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
                 Lembrou?
                 <RouterLink :to="{ name: 'login' }"
-                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
                   Login</RouterLink>
               </h6>
             </v-card-item>
@@ -59,13 +60,11 @@
 import { ref } from 'vue';
 import { useAuth } from '@/store/auth';
 import Logo from "@/components/logo/Logo.vue";
-import { useRouter } from 'vue-router';
 
 const email = ref()
 const password = ref()
 const token = ref()
 const state = ref('forgotPassword')
-const router = useRouter()
 
 function forgotPasword() {
   const authStore = useAuth()
@@ -80,7 +79,6 @@ function resetPassword() {
   authStore.resetPassword(token.value, password.value)
     .then(() => {
       changeToForgotPassword()
-      router.push({ name: 'login' })
     })
 }
 

@@ -3,7 +3,7 @@
     <template v-slot:activator="{ props }">
       <v-btn class="profileBtn custom-hover-primary" variant="text" v-bind="props" icon>
         <v-avatar size="35">
-          <img src="@/assets/users/avatar-1.jpg" height="35" alt="user" />
+          <img src="@/assets/images/users/avatar-1.jpg" height="35" alt="user" />
         </v-avatar>
       </v-btn>
     </template>
@@ -12,8 +12,8 @@
         <v-list-item value="item1" active-color="primary">
           <template v-slot:prepend>
             <v-icon icon="mdi-account-outline" />
+            <v-list-item-title class="pl-4 text-body-1">My Profile</v-list-item-title>
           </template>
-          <v-list-item-title class="pl-4 text-body-1">My Profile</v-list-item-title>
         </v-list-item>
         <v-list-item value="item2" active-color="primary">
           <template v-slot:prepend>
