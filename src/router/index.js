@@ -53,7 +53,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/Dashboard.vue'),
-    // beforeEnter: auth,
+    beforeEnter: auth,
     children: [
       {
         path: '',
@@ -69,9 +69,9 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach( (to, from, next) => {
   const authStore = useAuth()
-  await authStore.sanctum();
+  authStore.sanctum();
   next()
 })
 

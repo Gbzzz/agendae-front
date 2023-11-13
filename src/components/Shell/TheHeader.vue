@@ -14,10 +14,10 @@
           <v-list-item rounded class="mb-1" active-color="primary">
             <!---If icon-->
             <template v-slot:prepend>
-              <v-icon icon="mdi-account" />
+              <v-icon class="mb-0 mr-3" icon="mdi-account" />
+              <v-list-item-title>User</v-list-item-title>
             </template>
 
-            <v-list-item-title>User</v-list-item-title>
           </v-list-item>
         </v-list>
 

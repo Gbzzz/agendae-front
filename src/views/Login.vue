@@ -12,13 +12,13 @@
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field variant="outlined" hide-details color="primary" v-model="email"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Senha</v-label>
-                  <v-text-field variant="outlined" type="password" hide-details color="primary"
-                    v-model="password"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password" hide-details
+                    color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" class="pt-0">
@@ -32,7 +32,7 @@
                 </v-col>
 
                 <v-col cols="12" class="pt-0">
-                  <v-btn color="primary" size="large" block flat @click="login">Login</v-btn>
+                  <v-btn @click="login" color="primary" size="large" block flat>Login</v-btn>
                 </v-col>
               </v-row>
 
