@@ -9,43 +9,14 @@
                 <Logo />
               </div>
 
-              <v-row
-                v-if="state === 'forgotPassword'"
-                class="d-flex mb-3"
-              >
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
-                </v-col>
+              <ForgotPasswordForm v-if="state === 'forgotPassword'" @after-request="changeToResetPassword" />
 
-                <v-col cols="12" >
-                  <v-btn color="primary" size="large" block flat @click="forgotPasword">Solicitar token</v-btn>
-                </v-col>
-              </v-row>
-
-              <v-row
-                v-else-if="state === 'resetPassword'"
-                class="d-flex mb-3"
-              >
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Token</v-label>
-                  <v-text-field v-model="token" variant="outlined" type="text" hide-details color="primary"></v-text-field>
-                </v-col>
-
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Nova senha</v-label>
-                  <v-text-field v-model="password" variant="outlined" type="password" hide-details color="primary"></v-text-field>
-                </v-col>
-
-                <v-col cols="12" >
-                  <v-btn color="primary" size="large" block flat @click="resetPassword">Redefinir senha</v-btn>
-                </v-col>
-              </v-row>
+              <ResetPasswordForm v-else-if="state === 'resetPassword'" @after-reset="changeToForgotPassword" />
 
               <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
                 Lembrou?
                 <RouterLink :to="{ name: 'login' }"
-                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
                   Login</RouterLink>
               </h6>
             </v-card-item>
@@ -58,48 +29,27 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuth } from '@/store/auth';
 import Logo from "@/components/logo/Logo.vue";
+import ForgotPasswordForm from "@/components/Auth/ForgotPasswordForm.vue";
+import ResetPasswordForm from '@/components/Auth/ResetPasswordForm.vue';
+import { ElMessage } from 'element-plus';
 
-const email = ref()
-const password = ref()
-const token = ref()
 const state = ref('forgotPassword')
-
-function forgotPasword() {
-  const authStore = useAuth()
-  authStore.forgotPassword(email.value)
-    .then(() => {
-      changeToResetPassword()
-    })
-}
-
-function resetPassword() {
-  const authStore = useAuth()
-  authStore.resetPassword(token.value, password.value)
-    .then(() => {
-      changeToForgotPassword()
-    })
-}
+const isReset = ref(false)
 
 function changeToResetPassword() {
   state.value = 'resetPassword'
 }
 
+const successAlert = () => {
+  ElMessage({
+    message: 'Senha alterada com sucesso!',
+    type: 'success'
+  })
+}
+
 function changeToForgotPassword() {
-  email.value = ''
-  password.value = ''
-  token.value = ''
   state.value = 'forgotPassword'
+  successAlert()
 }
 </script>
-
-
-
-
-
-
-
-
-
-
