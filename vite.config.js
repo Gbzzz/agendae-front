@@ -8,6 +8,9 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    exclude: ['js-big-decimal']
+  },
   plugins: [
     vue({
       template: { transformAssetUrls }
