@@ -71,7 +71,7 @@ const errorMessage = ref(null)
 
 const schema = yup.object({
   first_name: yup.string().required().label('Primeiro nome'),
-  last_name: yup.string().required().label('Sobrenome'),
+  last_name: yup.string().required('Por favor, insira um e-mail').email('Por favor, insira um e-mail válido').label('E-mail'),
   email: yup.string().required().email().label('E-mail'),
   password: yup.string().required('Por favor, insira sua nova senha').min(8, 'Sua senha deve ter no mínimo 8 caracteres')
     .test('uppercase', 'Sua senha deve conter pelo menos uma letra maiúscula', value =>
